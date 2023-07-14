@@ -15,7 +15,7 @@ def lambda_handler(event, context):
 
     print(f"Event body check: {slack_event}")
 
-    if'bot_id' not in slack_event['event'] and slack_event['event']['type'] == 'message' and slack_event['event']['channel_type'] == 'im':
+    if'bot_id' not in slack_event['event']:
 	    
 	    # Instantiate a Web API client
 	    client = slack.WebClient(token=config.BOT_USER_TOKEN)
@@ -56,7 +56,7 @@ def lambda_handler(event, context):
 
 	    # Send POST request
 	    response = requests.post(
-	        "https://437qt06lik.execute-api.us-west-1.amazonaws.com/default/ManualPackingSlipUpdate",
+	        config.endpoint,
 	        data=json.dumps(payload),
 	        headers={"Content-Type": "application/json"}
 	    )
